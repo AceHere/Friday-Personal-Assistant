@@ -137,7 +137,7 @@ while True:
                 result = result.replace('weather of ', '')
             elif 'temperature' in result:
                 result = result.replace('temperature in ', '')
-            api = "087aedbe9b86301f4bfd9806eb780589"
+            api = "08edbe9b86301f4bfd9806eb780589"
             city = result
             url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api}&units=metric"
             page = requests.get(url)
