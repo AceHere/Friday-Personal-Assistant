@@ -166,11 +166,17 @@ while True:
             open('https://www.google.com')
             bye()
 
-        if 'open movies folder' in result: open("F:\\Movies")
+        if 'open movies folder' in result:
+            open("F:\\Movies")
+            bye()
 
-        if 'open code projects' in result: open("C:\\Users\\ACE\\PycharmProjects")
+        if 'open code projects' in result:
+            open("C:\\Users\\ACE\\PycharmProjects")
+            bye()
 
-        if 'open downloads' in result: open("C:\\Users\\ACE\\Downloads")
+        if 'open downloads' in result:
+            open("C:\\Users\\ACE\\Downloads")
+            bye()
 
         if 'oo' in result: speak(f'{hii} friend how are you!')
 
@@ -192,6 +198,7 @@ while True:
 
         if 'play songs' in result:
             open("https://music.youtube.com/playlist?list=LM")
+            bye()
 
         if 'show me old pics' in result:
             num = choice([1, 2])
