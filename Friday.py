@@ -7,14 +7,18 @@ from webbrowser import open
 import pygame
 import pyttsx3
 import speech_recognition as sr
-import wikipedia
 import requests
+from selenium import webdriver
+
+
 
 close = 0
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[2].id)
-
+try:
+    engine.setProperty('voice', voices[2].id)
+except:
+    engine.setProperty('voice', voices[1].id)
 # initialize pygame
 pygame.mixer.init()
 
@@ -110,16 +114,6 @@ while True:
         result = takeCommand().lower()
 
         # All Logic Station
-        if 'wikipedia' in result:
-            try:
-                print('Searching Wikipedia')
-                result = result.replace('wikipedia', '')
-                print(result)
-                print(wikipedia.summary(result, sentences=2))
-                speak(wikipedia.summary(result, sentences=2))
-            except:
-                speak(f'Sorry Nothing like {result} was found')
-
         if 'open youtube' in result:
             open('https://www.youtube.com')
             bye()
@@ -137,7 +131,7 @@ while True:
                 result = result.replace('weather of ', '')
             elif 'temperature' in result:
                 result = result.replace('temperature in ', '')
-            api = "08edbe9b86301f4bfd9806eb780589"
+            api = "ee7ba14d40ac39f0c7f38370f35287c7"
             city = result
             url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api}&units=metric"
             page = requests.get(url)
@@ -196,43 +190,18 @@ while True:
             startfile(path.join(music, songs[randint(1, len(songs) - 1)]))
             bye()
 
-        if 'play songs' in result:
+        elif 'play songs' in result:
             open("https://music.youtube.com/playlist?list=LM")
             bye()
 
-        if 'show me old pics' in result:
-            num = choice([1, 2])
-            if num == 1:
-                path1 = 'G:\\Photos'
-                songs = listdir(path1)
-                li = []
-                another = []
-                for i in songs:
-                    a = f'G:\\Photos\\{i}'
-                    li.append(a)
-                    ass = listdir(a)
-                    another.append(ass)
-                folders = ['100CANON', 'CANNON GAON', 'Canon EOS M50', 'dumraon', 'NArgarh', 'New folder1']
-                index = folders.index(choice(folders))
-                startfile(path.join(li[index], another[index][randint(1, len(another[index]) - 1)]))
-            elif num == 2:
-                path2 = 'F:\\Photos'
-                songs = listdir(path2)
-                li = []
-                another = []
-                for i in songs:
-                    a = f'F:\\Photos\\{i}'
-                    li.append(a)
-                    ass = listdir(a)
-                    another.append(ass)
-                folders = ['.thumbnails', '100_CFV5', 'adi', 'Allen', 'Avinash19 birthday', 'birthday and ghumi',
-                           'Camera', 'Camera MX', 'Camera12', 'Camera2', 'CANON DUMRAON', 'CANON M50', 'captured_media',
-                           'del', 'DELHI', 'DSLRCamera', 'Efectum', 'gautam wedding', 'ghc', 'guddu bhaiya cam',
-                           'NEW YEAR AND STUF', 'PAPU GREAT WED', 'Recived Pics', 'Screenshots', 'Tour Pics', 'Ujwal',
-                           'Vivek college', 'whatsapp2', 'YouCam Perfect', 'YouCam Perfect2']
-                index = folders.index(choice(folders))
-                startfile(path.join(li[index], another[index][randint(1, len(another[index]) - 1)]))
+        elif'play' in result:
+            driver = webdriver.Edge('msedgedriver.exe')
+            driver.maximize_window()
+            result = result.replace("play","")
+            driver.get(f'https://music.youtube.com/search?q={result}')
+            driver.find_element_by_xpath('//*[@id="contents"]/ytmusic-responsive-list-item-renderer/div[2]/div[1]/yt-formatted-string').click()
             bye()
+
 
         if 'open calculator' in result:
             open("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Accessories\\Calculator.lnk")
@@ -286,7 +255,7 @@ while True:
 10.Open Folders like 'code projects','open movies folder','downloads'
 10.And i love you
                 ''')
-                time.sleep(4)
+                time.sleep(6)
             if '' in inpu:
                active = True
                space_start = True
